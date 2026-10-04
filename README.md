@@ -19,7 +19,7 @@
 
 [![Website](https://img.shields.io/badge/Website-beardedviking.org-0d1117?style=for-the-badge&logo=firefox&logoColor=white)](https://beardedviking.org)
 [![MyCitadel](https://img.shields.io/badge/MyCitadel-mycitadel.lol-0d1117?style=for-the-badge&logo=shield&logoColor=white)](https://mycitadel.lol)
-[![GitHub](https://img.shields.io/badge/GitHub-BVSec-0d1117?style=for-the-badge&logo=github&logoColor=white)](https://github.com/BVSec)
+[![GitHub](https://img.shields.io/badge/GitHub-BeardedVikingTX-0d1117?style=for-the-badge&logo=github&logoColor=white)](https://github.com/BeardedVikingTX)
 [![License](https://img.shields.io/badge/License-Source%20Available-0d1117?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](#-license)
 
 ---
