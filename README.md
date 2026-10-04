@@ -3,8 +3,7 @@
 <!--                  Bearded Viking Security Forge                          -->
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 
-<div align="center">
-
+```
 
  ______     ______            
 | __ ) \   / / ___|  ___  ___ 
@@ -13,7 +12,7 @@
 |____/  \_/  |____/ \___|\___|
 
 
-</div>
+```
 ### **Bearded Viking Security Forge**
 
 **Hunt bugs. Forge code. Defend privacy.**
