@@ -1,0 +1,784 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   BVSec — Core Stylesheet
+   Bearded Viking Security Forge
+   ═══════════════════════════════════════════════════════════════════════════
+
+   @file      assets/css/bvsec.css
+   @package   BVSec
+   @author    BeardedVikingTX
+   @copyright 2026 BeardedVikingTX / BVSec. All Rights Reserved.
+   @license   Proprietary — Source Available. See LICENSE.md.
+
+   A modern, performant, and resilient CSS foundation.
+   Utilizes the latest web platform features (2027-ready) with graceful fallbacks.
+
+   ┌─────────────────────────────────────────────────────────────────────────┐
+   │  TABLE OF CONTENTS                                                      │
+   │  ─────────────────────────────────────────────────────────────────────  │
+   │  00. LAYER DEFINITION                                                   │
+   │  01. DESIGN TOKENS (Custom Properties)                                  │
+   │  02. MODERN RESET & BASE STYLES                                         │
+   │  03. TYPOGRAPHY & FLUID TYPE                                            │
+   │  04. LAYOUT & GRID PRIMITIVES                                           │
+   │  05. COMPONENTS (Cards, Buttons, etc.)                                  │
+   │  06. ANIMATIONS & KEYFRAMES                                             │
+   │  07. UTILITY CLASSES                                                    │
+   │  08. VIEW TRANSITIONS                                                   │
+   │  09. RESPONSIVE MEDIA QUERIES                                           │
+   └─────────────────────────────────────────────────────────────────────────┘
+*/
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   00. LAYER DEFINITION
+   Manage the cascade with explicit layers, reducing specificity conflicts.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer reset, base, tokens, layout, components, animations, utilities;
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   01. DESIGN TOKENS (Custom Properties)
+   Registered properties via @property for animation and type safety.
+   Colors use oklch() for perceptually uniform, vibrant palettes.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer tokens {
+    :root {
+        /* --- Color Palette: Dark, Tactical, Viking-Inspired --- */
+        /* Base - Deep, cold blacks and blues inspired by northern nights */
+        --bv-color-bg-deep:      oklch(15% 0.02 250); /* #0d1117 approx */
+        --bv-color-bg-elevated:  oklch(18% 0.02 250); /* #161b22 approx */
+        --bv-color-bg-surface:   oklch(21% 0.02 250);
+        --bv-color-border:       oklch(30% 0.03 250);
+        --bv-color-border-glow:  oklch(50% 0.15 250);
+
+        /* Text */
+        --bv-color-text-primary:   oklch(92% 0.01 250);
+        --bv-color-text-secondary: oklch(70% 0.02 250);
+        --bv-color-text-muted:     oklch(50% 0.02 250);
+
+        /* Accent Colors */
+        --bv-color-accent:         oklch(75% 0.18 240); /* Cyber Blue */
+        --bv-color-accent-warm:    oklch(80% 0.15 85);  /* Viking Gold */
+        --bv-color-success:        oklch(70% 0.15 145); /* Jade Green */
+        --bv-color-danger:         oklch(65% 0.22 25);  /* Blood Red */
+        --bv-color-warning:        oklch(80% 0.18 95);  /* Amber */
+
+        /* Glassmorphism */
+        --bv-glass-bg: rgba(22, 27, 34, 0.6);
+        --bv-glass-border: rgba(88, 166, 255, 0.2);
+        --bv-glass-blur: 12px;
+
+        /* --- Typography --- */
+        /* Font Families (loaded in header.php) */
+        --bv-font-viking-display:     "Cinzel Decorative", serif;
+        --bv-font-viking-heading:     "Cinzel", serif;
+        --bv-font-viking-body:        "MedievalSharp", serif;
+        --bv-font-viking-accent:      "Uncial Antiqua", serif;
+        --bv-font-viking-display-alt: "Skranji", serif;
+        --bv-font-viking-blackletter: "Germania One", serif;
+        
+        --bv-font-mono-primary:       "JetBrains Mono", ui-monospace, monospace;
+        --bv-font-mono-alt:           "Fira Code", ui-monospace, monospace;
+        
+        --bv-font-sci-display:        "Orbitron", sans-serif;
+        --bv-font-sci-body:           "Space Grotesk", sans-serif;
+        --bv-font-sci-label:          "Michroma", sans-serif;
+        --bv-font-sci-glitch:         "Rubik Glitch", cursive;
+        
+        --bv-font-runic:              "Noto Sans Runic", sans-serif;
+
+        /* Fluid Type Scale with clamp() */
+        --bv-text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8rem);
+        --bv-text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+        --bv-text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+        --bv-text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+        --bv-text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+        --bv-text-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+        --bv-text-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 3rem);
+        --bv-text-4xl: clamp(2.25rem, 1.8rem + 2.25vw, 4rem);
+
+        /* Line Height, Letter Spacing */
+        --bv-leading-tight: 1.2;
+        --bv-leading-normal: 1.5;
+        --bv-leading-loose: 1.7;
+        --bv-tracking-tight: -0.02em;
+        --bv-tracking-normal: 0;
+        --bv-tracking-wide: 0.05em;
+        --bv-tracking-wider: 0.1em;
+
+        /* --- Spacing & Sizing --- */
+        --bv-space-3xs: 0.25rem;
+        --bv-space-2xs: 0.5rem;
+        --bv-space-xs: 0.75rem;
+        --bv-space-sm: 1rem;
+        --bv-space-md: 1.5rem;
+        --bv-space-lg: 2rem;
+        --bv-space-xl: 3rem;
+        --bv-space-2xl: 5rem;
+        --bv-space-3xl: 8rem;
+
+        --bv-radius-xs: 0.125rem;
+        --bv-radius-sm: 0.25rem;
+        --bv-radius-md: 0.5rem;
+        --bv-radius-lg: 0.75rem;
+        --bv-radius-xl: 1rem;
+        --bv-radius-full: 9999px;
+
+        /* --- Motion & Animation --- */
+        --bv-ease-in: cubic-bezier(0.4, 0, 1, 1);
+        --bv-ease-out: cubic-bezier(0, 0, 0.2, 1);
+        --bv-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+        --bv-ease-bounce: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        --bv-duration-fast: 150ms;
+        --bv-duration-base: 250ms;
+        --bv-duration-slow: 400ms;
+        --bv-duration-slower: 700ms;
+
+        /* --- Z-Index Scale --- */
+        --bv-z-below: -1;
+        --bv-z-base: 0;
+        --bv-z-above: 1;
+        --bv-z-header: 100;
+        --bv-z-overlay: 200;
+        --bv-z-modal: 300;
+        --bv-z-toast: 400;
+    }
+
+    /* Registered custom properties for animations */
+    @property --bv-gradient-angle {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 0deg;
+    }
+
+    @property --bv-glow-opacity {
+        syntax: "<number>";
+        inherits: false;
+        initial-value: 0.6;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   02. MODERN RESET & BASE STYLES
+   A sensible, modern reset ensuring consistency across browsers.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer reset {
+    /* Box sizing and basic resets */
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    * {
+        margin: 0;
+    }
+
+    html {
+        color-scheme: dark;
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    body {
+        min-height: 100vh;
+        min-height: 100dvh; /* Dynamic viewport height for mobile */
+        line-height: var(--bv-leading-normal);
+        font-family: var(--bv-font-sci-body);
+        font-size: var(--bv-text-base);
+        color: var(--bv-color-text-primary);
+        background-color: var(--bv-color-bg-deep);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+        overflow-x: hidden;
+    }
+
+    /* Media elements */
+    img, picture, video, canvas, svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Form elements inherit typography */
+    input, button, textarea, select {
+        font: inherit;
+        color: inherit;
+    }
+
+    /* Remove default list styles when a list has a class */
+    ul[role="list"], ol[role="list"] {
+        list-style: none;
+        padding-inline-start: 0;
+    }
+
+    /* Headings and paragraphs */
+    h1, h2, h3, h4, h5, h6, p {
+        overflow-wrap: break-word;
+    }
+
+    /* Links */
+    a {
+        color: var(--bv-color-accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.2em;
+        transition: color var(--bv-duration-fast) var(--bv-ease-out);
+    }
+    a:hover {
+        color: var(--bv-color-accent-warm);
+    }
+
+    /* Selection */
+    ::selection {
+        background-color: var(--bv-color-accent);
+        color: var(--bv-color-bg-deep);
+    }
+
+    /* Accessibility: Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   03. TYPOGRAPHY & FLUID TYPE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer base {
+    /* Headings */
+    h1, h2, h3 {
+        font-family: var(--bv-font-viking-heading);
+        font-weight: 700;
+        line-height: var(--bv-leading-tight);
+        letter-spacing: var(--bv-tracking-tight);
+        text-wrap: balance;
+    }
+
+    h1 {
+        font-family: var(--bv-font-viking-display);
+        font-size: var(--bv-text-4xl);
+    }
+
+    h2 { font-size: var(--bv-text-3xl); }
+    h3 { font-size: var(--bv-text-2xl); }
+    h4, h5, h6 {
+        font-family: var(--bv-font-sci-display);
+        font-weight: 600;
+        font-size: var(--bv-text-xl);
+        letter-spacing: var(--bv-tracking-normal);
+    }
+
+    /* Code and Terminal */
+    code, pre, kbd, samp {
+        font-family: var(--bv-font-mono-primary);
+        font-size: 0.925em;
+        font-variant-ligatures: common-ligatures;
+    }
+
+    pre {
+        padding: var(--bv-space-md);
+        background-color: var(--bv-color-bg-elevated);
+        border: 1px solid var(--bv-color-border);
+        border-radius: var(--bv-radius-md);
+        overflow-x: auto;
+        line-height: var(--bv-leading-loose);
+    }
+
+    /* Blockquotes */
+    blockquote {
+        padding-inline-start: var(--bv-space-md);
+        border-inline-start: 3px solid var(--bv-color-accent);
+        font-size: var(--bv-text-lg);
+        font-style: italic;
+        color: var(--bv-color-text-secondary);
+    }
+
+    /* Horizontal Rules */
+    hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--bv-color-border), transparent);
+        margin-block: var(--bv-space-xl);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   04. LAYOUT & GRID PRIMITIVES
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer layout {
+    /* --- Container Queries for Component-Level Responsiveness --- */
+    .bv-container {
+        container-type: inline-size;
+        container-name: bv-container;
+    }
+
+    /* --- Main Content Wrapper --- */
+    .bv-main {
+        flex-grow: 1;
+        width: 100%;
+        max-width: 90rem; /* 1440px */
+        margin-inline: auto;
+        padding-inline: var(--bv-space-md);
+    }
+    @media (min-width: 48rem) {
+        .bv-main { padding-inline: var(--bv-space-lg); }
+    }
+
+    /* --- Responsive Flex Utilities --- */
+    .bv-flex {
+        display: flex;
+        gap: var(--bv-space-md);
+    }
+    .bv-flex-col { flex-direction: column; }
+    .bv-flex-wrap { flex-wrap: wrap; }
+    .bv-flex-center {
+        align-items: center;
+        justify-content: center;
+    }
+    .bv-flex-between {
+        align-items: center;
+        justify-content: space-between;
+    }
+    .bv-flex-grow { flex-grow: 1; }
+
+    /* --- Responsive Grid --- */
+    .bv-grid {
+        display: grid;
+        gap: var(--bv-space-lg);
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    }
+    .bv-grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr)); }
+    .bv-grid--3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   05. COMPONENTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer components {
+    /* --- Card: Glassmorphism with Subtle Border --- */
+    .bv-card {
+        background: var(--bv-glass-bg);
+        -webkit-backdrop-filter: blur(var(--bv-glass-blur));
+        backdrop-filter: blur(var(--bv-glass-blur));
+        border: 1px solid var(--bv-glass-border);
+        border-radius: var(--bv-radius-lg);
+        padding: var(--bv-space-lg);
+        transition: transform var(--bv-duration-base) var(--bv-ease-out),
+                    box-shadow var(--bv-duration-base) var(--bv-ease-out),
+                    border-color var(--bv-duration-base) var(--bv-ease-out);
+        position: relative;
+        overflow: hidden;
+    }
+    .bv-card::before { /* Subtle inner glow */
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg,
+            oklch(60% 0.2 250 / 0.3),
+            transparent 50%,
+            oklch(60% 0.2 250 / 0.1));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity var(--bv-duration-slow) var(--bv-ease-out);
+    }
+    .bv-card:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 10px 30px -5px oklch(60% 0.2 250 / 0.15),
+                    0 0 0 1px oklch(60% 0.2 250 / 0.3);
+        border-color: var(--bv-color-border-glow);
+    }
+    .bv-card:hover::before {
+        opacity: 1;
+    }
+
+    /* --- Frame Box: Sci-Fi Angled Corners --- */
+    .bv-frame {
+        position: relative;
+        border: 1px solid var(--bv-color-border);
+        border-radius: var(--bv-radius-md);
+        padding: var(--bv-space-lg);
+        /* Angled corners using clip-path */
+        clip-path: polygon(
+            0 1.5rem, 1.5rem 0, 100% 0, 100% calc(100% - 1.5rem),
+            calc(100% - 1.5rem) 100%, 0 100%
+        );
+        transition: clip-path var(--bv-duration-base) var(--bv-ease-out);
+    }
+    .bv-frame--full {
+        clip-path: polygon(
+            0 1rem, 1rem 0, 100% 0, 100% calc(100% - 1rem),
+            calc(100% - 1rem) 100%, 0 100%
+        );
+    }
+    .bv-frame::after { /* Glowing border effect */
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--bv-color-accent), var(--bv-color-accent-warm));
+        clip-path: inherit;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity var(--bv-duration-slow) var(--bv-ease-out);
+    }
+    .bv-frame:hover::after {
+        opacity: 0.15;
+    }
+
+    /* --- Button --- */
+    .bv-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--bv-space-2xs);
+        padding: var(--bv-space-sm) var(--bv-space-md);
+        font-family: var(--bv-font-sci-label);
+        font-size: var(--bv-text-sm);
+        font-weight: 700;
+        letter-spacing: var(--bv-tracking-wide);
+        text-transform: uppercase;
+        border: 1px solid transparent;
+        border-radius: var(--bv-radius-sm);
+        cursor: pointer;
+        transition: all var(--bv-duration-base) var(--bv-ease-out);
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+    }
+    .bv-btn::before { /* Shine effect */
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        transition: left var(--bv-duration-slower) var(--bv-ease-out);
+    }
+    .bv-btn:hover::before {
+        left: 150%;
+    }
+    .bv-btn--primary {
+        background-color: var(--bv-color-accent);
+        color: var(--bv-color-bg-deep);
+        border-color: var(--bv-color-accent);
+    }
+    .bv-btn--primary:hover {
+        background-color: transparent;
+        color: var(--bv-color-accent);
+        box-shadow: 0 0 20px oklch(60% 0.2 250 / 0.3);
+    }
+    .bv-btn--secondary {
+        background-color: transparent;
+        color: var(--bv-color-accent);
+        border-color: var(--bv-color-accent);
+    }
+    .bv-btn--secondary:hover {
+        background-color: var(--bv-color-accent);
+        color: var(--bv-color-bg-deep);
+    }
+
+    /* --- Badge / Tag --- */
+    .bv-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--bv-space-3xs) var(--bv-space-xs);
+        font-family: var(--bv-font-mono-primary);
+        font-size: var(--bv-text-xs);
+        font-weight: 500;
+        border-radius: var(--bv-radius-full);
+        background-color: oklch(25% 0.05 250);
+        color: var(--bv-color-accent);
+        border: 1px solid oklch(40% 0.1 250);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   06. ANIMATIONS & KEYFRAMES
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer animations {
+    /* --- Glitch Effect --- */
+    .bv-glitch {
+        position: relative;
+        display: inline-block;
+    }
+    .bv-glitch::before,
+    .bv-glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bv-color-bg-deep);
+        overflow: hidden;
+        clip-path: inset(0 0 0 0);
+    }
+    .bv-glitch::before {
+        left: 2px;
+        text-shadow: -2px 0 var(--bv-color-danger);
+        animation: bv-glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+    .bv-glitch::after {
+        left: -2px;
+        text-shadow: 2px 0 var(--bv-color-accent);
+        animation: bv-glitch-anim-2 3s infinite linear alternate-reverse;
+    }
+
+    @keyframes bv-glitch-anim-1 {
+        0%   { clip-path: inset(20% 0 30% 0); }
+        20%  { clip-path: inset(60% 0 10% 0); }
+        40%  { clip-path: inset(10% 0 70% 0); }
+        60%  { clip-path: inset(40% 0 20% 0); }
+        80%  { clip-path: inset(80% 0 5% 0); }
+        100% { clip-path: inset(5% 0 80% 0); }
+    }
+    @keyframes bv-glitch-anim-2 {
+        0%   { clip-path: inset(15% 0 45% 0); }
+        20%  { clip-path: inset(70% 0 5% 0); }
+        40%  { clip-path: inset(5% 0 80% 0); }
+        60%  { clip-path: inset(30% 0 40% 0); }
+        80%  { clip-path: inset(55% 0 15% 0); }
+        100% { clip-path: inset(10% 0 60% 0); }
+    }
+
+    /* --- Floating / Drifting Animation --- */
+    .bv-float {
+        animation: bv-float 6s ease-in-out infinite;
+    }
+    .bv-float--slow { animation-duration: 10s; }
+    .bv-float--delay { animation-delay: 2s; }
+
+    @keyframes bv-float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50%      { transform: translateY(-15px) rotate(1deg); }
+    }
+
+    /* --- Animated Gradient Border --- */
+    .bv-gradient-border {
+        position: relative;
+        background: var(--bv-color-bg-elevated);
+        border-radius: var(--bv-radius-lg);
+        z-index: 0;
+    }
+    .bv-gradient-border::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: inherit;
+        background: conic-gradient(
+            from var(--bv-gradient-angle),
+            var(--bv-color-accent),
+            var(--bv-color-accent-warm),
+            var(--bv-color-accent)
+        );
+        z-index: -1;
+        animation: bv-spin-gradient 4s linear infinite;
+    }
+    @keyframes bv-spin-gradient {
+        to { --bv-gradient-angle: 360deg; }
+    }
+
+    /* --- Pulse / Scanline Effect --- */
+    .bv-scanline {
+        position: relative;
+        overflow: hidden;
+    }
+    .bv-scanline::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            transparent 50%,
+            oklch(60% 0.2 250 / 0.08) 51%,
+            transparent 51%
+        );
+        background-size: 100% 4px;
+        animation: bv-scanline-move 8s linear infinite;
+        pointer-events: none;
+    }
+    @keyframes bv-scanline-move {
+        from { background-position: 0 0; }
+        to { background-position: 0 100%; }
+    }
+
+    /* --- Entrance Animations (using scroll-driven, with fallback) --- */
+    .bv-animate-in {
+        animation: bv-fade-in-up var(--bv-duration-slower) var(--bv-ease-out) both;
+    }
+    @keyframes bv-fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Scroll-Driven Animations (Progressive Enhancement) */
+    @supports (animation-timeline: view()) {
+        .bv-scroll-animate {
+            animation: bv-fade-in-up linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
+        }
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   07. UTILITY CLASSES
+   Small, single-purpose classes for rapid development.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer utilities {
+    /* --- Text Utilities --- */
+    .bv-text-gradient {
+        background: linear-gradient(135deg, var(--bv-color-accent), var(--bv-color-accent-warm));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;   /* ← THE KILLER */
+        color: transparent;
+    }
+    .bv-text-glow {
+        text-shadow: 0 0 10px var(--bv-color-accent),
+                     0 0 20px var(--bv-color-accent);
+    }
+    .bv-text-center { text-align: center; }
+    .bv-text-balance { text-wrap: balance; }
+    .bv-text-pretty { text-wrap: pretty; }
+
+    /* --- Visibility --- */
+    .bv-hidden { display: none !important; }
+    .bv-visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    /* --- Spacing --- */
+    .bv-mt-xs { margin-top: var(--bv-space-xs); }
+    .bv-mt-sm { margin-top: var(--bv-space-sm); }
+    .bv-mt-md { margin-top: var(--bv-space-md); }
+    .bv-mt-lg { margin-top: var(--bv-space-lg); }
+    .bv-mb-sm { margin-bottom: var(--bv-space-sm); }
+    .bv-mb-md { margin-bottom: var(--bv-space-md); }
+    .bv-mb-lg { margin-bottom: var(--bv-space-lg); }
+    .bv-p-md { padding: var(--bv-space-md); }
+    .bv-p-lg { padding: var(--bv-space-lg); }
+
+    /* --- Security & UX Enhancements --- */
+    .bv-no-select {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    .bv-no-drag {
+        -webkit-user-drag: none;
+    }
+    /* Anti-clickjacking for sensitive iframes */
+    .bv-protected-iframe {
+        pointer-events: none;
+    }
+    .bv-protected-iframe:focus,
+    .bv-protected-iframe:hover {
+        pointer-events: auto;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   08. VIEW TRANSITIONS
+   Smooth, native transitions between page states.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer components {
+    @view-transition {
+        navigation: auto;
+    }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 0.4s;
+        animation-timing-function: var(--bv-ease-in-out);
+    }
+
+    /* Custom transition for the main content area */
+    main {
+        view-transition-name: main-content;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   09. RESPONSIVE MEDIA QUERIES
+   Mobile-first adjustments and component-level responsiveness.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* --- Container Query for the Card Component --- */
+@container bv-container (min-width: 20rem) {
+    .bv-card {
+        padding: var(--bv-space-lg);
+    }
+}
+@container bv-container (min-width: 30rem) {
+    .bv-card--horizontal {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--bv-space-lg);
+    }
+}
+
+/* --- Reduced Motion (already handled in reset, but reinforced) --- */
+@media (prefers-reduced-motion: reduce) {
+    .bv-glitch::before,
+    .bv-glitch::after,
+    .bv-float,
+    .bv-gradient-border::before,
+    .bv-scanline::after {
+        animation: none;
+    }
+}
+
+/* --- Print Styles --- */
+@media print {
+    body {
+        background: #fff;
+        color: #000;
+    }
+    .bv-card, .bv-frame {
+        border: 1px solid #ccc;
+        background: none;
+        box-shadow: none;
+    }
+    .bv-glitch::before,
+    .bv-glitch::after {
+        display: none;
+    }
+}
+
+/* --- Dark Mode is the default, but this ensures it if user system is dark --- */
+@media (prefers-color-scheme: light) {
+    /* No action needed; the design is intentionally dark-only.
+       This is a security forge, not a sunny meadow. */
+}

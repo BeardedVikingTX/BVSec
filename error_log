@@ -1,0 +1,5 @@
+[04-Oct-2026 14:03:01 UTC] PHP Warning:  require_once(/home/beardedviking/beardedviking.org/../includes/header.php): Failed to open stream: No such file or directory in /home/beardedviking/beardedviking.org/bug-bounty.php on line 26
+[04-Oct-2026 14:03:01 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/beardedviking/beardedviking.org/../includes/header.php' (include_path='.:/opt/alt/php85/usr/share/pear:/opt/alt/php85/usr/share/php:/usr/share/pear:/usr/share/php') in /home/beardedviking/beardedviking.org/bug-bounty.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/beardedviking/beardedviking.org/bug-bounty.php on line 26

@@ -1,0 +1,1450 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   BVSec — About Page Stylesheet
+   ═══════════════════════════════════════════════════════════════════════════
+
+   @file      assets/css/bvsec_about.css
+   @package   BVSec
+   @author    BeardedVikingTX
+   @copyright 2026 BeardedVikingTX / BVSec. All Rights Reserved.
+   @license   Proprietary — Source Available. See LICENSE.md.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer about-hero, about-origin, about-chronicle, about-creds,
+       about-philosophy, about-family, about-arsenal, about-heritage,
+       about-manifesto, about-cta, about-responsive;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HERO — THE MAN BEHIND THE BEARD
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-hero {
+
+    .bv-about-hero {
+        position: relative;
+        min-height: calc(100vh - var(--bv-nav-height-total, 100px));
+        min-height: calc(100dvh - var(--bv-nav-height-total, 100px));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 4vw, 2rem);
+        overflow: hidden;
+        isolation: isolate;
+    }
+
+    /* ── Background ────────────────────────────────────────────── */
+    .bv-about-hero__bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .bv-about-hero__vignette {
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 90% 70% at 50% 40%,
+                oklch(18% 0.05 250 / 0.65) 0%, transparent 65%),
+            radial-gradient(ellipse 60% 50% at 50% 100%,
+                oklch(20% 0.08 85 / 0.15) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .bv-about-hero__aurora {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 130%;
+        aspect-ratio: 1;
+        transform: translate(-50%, -50%);
+        background: conic-gradient(
+            from 0deg at 50% 50%,
+            transparent 0deg,
+            oklch(60% 0.2 250 / 0.10) 90deg,
+            transparent 180deg,
+            oklch(80% 0.15 85 / 0.07) 270deg,
+            transparent 360deg
+        );
+        filter: blur(90px);
+        animation: bv-about-aurora 70s linear infinite;
+        pointer-events: none;
+    }
+    @keyframes bv-about-aurora {
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .bv-about-hero__grid {
+        position: absolute;
+        inset: -100px;
+        background-image:
+            linear-gradient(oklch(60% 0.2 250 / 0.035) 1px, transparent 1px),
+            linear-gradient(90deg, oklch(60% 0.2 250 / 0.035) 1px, transparent 1px);
+        background-size: 90px 90px;
+        mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, black 20%, transparent 75%);
+        animation: bv-about-grid-drift 100s linear infinite;
+        pointer-events: none;
+    }
+    @keyframes bv-about-grid-drift {
+        to { transform: translate(90px, 90px); }
+    }
+
+    /* ── Runic columns ─────────────────────────────────────────── */
+    .bv-about-hero__runes {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        font-family: var(--bv-font-runic);
+        font-size: 1.35rem;
+        color: oklch(60% 0.2 250 / 0.14);
+        pointer-events: none;
+        user-select: none;
+        z-index: 1;
+    }
+    .bv-about-hero__runes--left  { left: clamp(1rem, 3vw, 3rem); }
+    .bv-about-hero__runes--right { right: clamp(1rem, 3vw, 3rem); }
+    .bv-about-hero__runes span {
+        animation: bv-about-rune-pulse 5s ease-in-out infinite;
+    }
+    .bv-about-hero__runes span:nth-child(1) { animation-delay: 0.0s; }
+    .bv-about-hero__runes span:nth-child(2) { animation-delay: 0.35s; }
+    .bv-about-hero__runes span:nth-child(3) { animation-delay: 0.70s; }
+    .bv-about-hero__runes span:nth-child(4) { animation-delay: 1.05s; }
+    .bv-about-hero__runes span:nth-child(5) { animation-delay: 1.40s; }
+    .bv-about-hero__runes span:nth-child(6) { animation-delay: 1.75s; }
+    .bv-about-hero__runes span:nth-child(7) { animation-delay: 2.10s; }
+
+    @keyframes bv-about-rune-pulse {
+        0%, 100% { color: oklch(60% 0.2 250 / 0.14); text-shadow: none; }
+        50%      { color: oklch(80% 0.15 85 / 0.55); text-shadow: 0 0 20px oklch(80% 0.15 85 / 0.5); }
+    }
+
+    /* ── Inner content ─────────────────────────────────────────── */
+    .bv-about-hero__inner {
+        position: relative;
+        z-index: 2;
+        max-width: 62rem;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bv-about-hero__eyebrow {
+        margin-bottom: var(--bv-space-lg);
+    }
+
+    /* ── Title block ───────────────────────────────────────────── */
+    .bv-about-hero__title {
+        margin: 0 0 var(--bv-space-lg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .bv-about-hero__title-runes {
+        font-family: var(--bv-font-runic);
+        font-size: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+        color: var(--bv-color-accent-warm);
+        letter-spacing: 0.5em;
+        padding-left: 0.5em;
+        text-shadow:
+            0 0 12px oklch(80% 0.15 85 / 0.6),
+            0 0 32px oklch(80% 0.15 85 / 0.3);
+        animation: bv-about-rune-title 6s ease-in-out infinite;
+        margin-bottom: 0.5rem;
+    }
+    @keyframes bv-about-rune-title {
+        0%, 100% { opacity: 0.85; }
+        50%      { opacity: 1; }
+    }
+
+    .bv-about-hero__title-name {
+        font-family: var(--bv-font-viking-display);
+        font-size: clamp(2.75rem, 2rem + 4vw, 5.5rem);
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        background: linear-gradient(180deg,
+            var(--bv-color-text-primary) 0%,
+            oklch(80% 0.05 250) 60%,
+            var(--bv-color-accent-warm) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 60px oklch(60% 0.2 250 / 0.2));
+    }
+
+    .bv-about-hero__title-tagline {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 1.25rem;
+        margin-top: 0.75rem;
+        font-family: var(--bv-font-sci-label);
+        font-size: clamp(0.85rem, 0.75rem + 0.4vw, 1rem);
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--bv-color-text-muted);
+    }
+    .bv-about-hero__title-word {
+        position: relative;
+    }
+    .bv-about-hero__title-word:not(:last-child)::after {
+        content: "·";
+        position: absolute;
+        right: -0.75rem;
+        color: var(--bv-color-accent-warm);
+        opacity: 0.6;
+    }
+    .bv-about-hero__title-word--accent {
+        color: var(--bv-color-accent-warm);
+        font-family: var(--bv-font-viking-heading);
+        font-weight: 600;
+        letter-spacing: 0.25em;
+    }
+
+    /* ── Lead paragraph ────────────────────────────────────────── */
+    .bv-about-hero__lead {
+        font-family: var(--bv-font-sci-body);
+        font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
+        line-height: 1.75;
+        color: var(--bv-color-text-secondary);
+        max-width: 58ch;
+        margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
+    }
+
+    /* ── Meta strip ────────────────────────────────────────────── */
+    .bv-about-hero__meta {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--bv-space-md);
+        width: 100%;
+        max-width: 48rem;
+        padding: var(--bv-space-lg) 0 0;
+        border-top: 1px solid var(--bv-color-border);
+        position: relative;
+    }
+    .bv-about-hero__meta::before {
+        content: "ᛝ";
+        position: absolute;
+        top: -0.75rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--bv-color-bg-deep);
+        padding: 0 0.75rem;
+        font-family: var(--bv-font-runic);
+        font-size: 0.9rem;
+        color: var(--bv-color-accent-warm);
+        text-shadow: 0 0 10px oklch(80% 0.15 85 / 0.6);
+    }
+
+    .bv-about-hero__meta-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.35rem;
+    }
+    .bv-about-hero__meta-key {
+        font-family: var(--bv-font-sci-label);
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--bv-color-text-muted);
+    }
+    .bv-about-hero__meta-value {
+        font-family: var(--bv-font-mono-primary);
+        font-size: 0.85rem;
+        color: var(--bv-color-text-primary);
+        letter-spacing: 0.04em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+    .bv-about-hero__meta-value--live {
+        color: var(--bv-color-success);
+    }
+    .bv-about-hero__meta-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--bv-color-success);
+        box-shadow: 0 0 8px var(--bv-color-success);
+        animation: bv-about-dot-pulse 2s ease-in-out infinite;
+    }
+    @keyframes bv-about-dot-pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%      { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* ── Scroll indicator ──────────────────────────────────────── */
+    .bv-about-hero__scroll {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        z-index: 2;
+        opacity: 0.5;
+    }
+    .bv-about-hero__scroll-rune {
+        font-family: var(--bv-font-runic);
+        font-size: 1rem;
+        color: var(--bv-color-accent-warm);
+        animation: bv-about-rune-title 3s ease-in-out infinite;
+    }
+    .bv-about-hero__scroll-text {
+        font-family: var(--bv-font-mono-primary);
+        font-size: 0.6rem;
+        letter-spacing: 0.28em;
+        color: var(--bv-color-text-muted);
+    }
+    .bv-about-hero__scroll-line {
+        width: 1px;
+        height: 40px;
+        background: linear-gradient(to bottom, var(--bv-color-accent), transparent);
+        animation: bv-about-scroll-line 2.4s ease-in-out infinite;
+    }
+    @keyframes bv-about-scroll-line {
+        0%, 100% { opacity: 1; transform: scaleY(1); }
+        50%      { opacity: 0.3; transform: scaleY(0.4); }
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ORIGIN STORY
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-origin {
+
+    .bv-about-origin__grid {
+        max-width: 90rem;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: var(--bv-space-xl);
+        align-items: start;
+    }
+
+    .bv-about-origin__narrative {
+        display: flex;
+        flex-direction: column;
+        gap: var(--bv-space-md);
+    }
+    .bv-about-origin__narrative p {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.98rem;
+        line-height: 1.85;
+        color: var(--bv-color-text-secondary);
+    }
+    .bv-about-origin__narrative strong {
+        color: var(--bv-color-text-primary);
+        font-weight: 600;
+    }
+
+    /* Dropcap on the first paragraph */
+    .bv-about-origin__dropcap::first-letter {
+        font-family: var(--bv-font-viking-display);
+        font-size: 4.5rem;
+        font-weight: 900;
+        line-height: 0.85;
+        float: left;
+        margin: 0.15rem 0.75rem 0 0;
+        color: var(--bv-color-accent-warm);
+        text-shadow: 0 0 30px oklch(80% 0.15 85 / 0.4);
+    }
+
+    /* Pull quote */
+    .bv-about-origin__pullquote {
+        position: relative;
+        margin: var(--bv-space-lg) 0;
+        padding: var(--bv-space-lg) var(--bv-space-lg) var(--bv-space-lg) 4.5rem;
+        border-left: 3px solid var(--bv-color-accent-warm);
+        background: linear-gradient(90deg,
+            oklch(20% 0.06 85 / 0.15) 0%,
+            transparent 100%);
+        border-radius: 0 var(--bv-radius-md) var(--bv-radius-md) 0;
+    }
+    .bv-about-origin__pullquote-mark {
+        position: absolute;
+        top: 1.5rem;
+        left: 1.25rem;
+        font-size: 2.5rem;
+        color: var(--bv-color-accent-warm);
+        opacity: 0.7;
+        text-shadow: 0 0 15px oklch(80% 0.15 85 / 0.5);
+        line-height: 1;
+    }
+    .bv-about-origin__pullquote blockquote {
+        font-family: var(--bv-font-viking-accent);
+        font-size: 1.25rem;
+        line-height: 1.6;
+        color: var(--bv-color-text-primary);
+        letter-spacing: 0.01em;
+        margin: 0 0 0.75rem;
+    }
+    .bv-about-origin__pullquote cite {
+        font-family: var(--bv-font-mono-primary);
+        font-size: 0.75rem;
+        font-style: normal;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--bv-color-accent-warm);
+    }
+
+    /* Side facts */
+    .bv-about-origin__side {
+        display: flex;
+        flex-direction: column;
+        gap: var(--bv-space-md);
+        position: sticky;
+        top: calc(var(--bv-nav-height-total, 100px) + var(--bv-space-md));
+    }
+    .bv-about-origin__fact {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: var(--bv-space-md);
+    }
+    .bv-about-origin__fact-icon {
+        font-size: 1.35rem;
+        color: var(--bv-color-accent);
+        margin-bottom: 0.15rem;
+    }
+    .bv-about-origin__fact h3 {
+        font-family: var(--bv-font-viking-heading);
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--bv-color-text-muted);
+        margin: 0;
+    }
+    .bv-about-origin__fact-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--bv-color-accent-warm);
+        letter-spacing: -0.01em;
+        margin: 0;
+    }
+    .bv-about-origin__fact-desc {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.82rem;
+        line-height: 1.6;
+        color: var(--bv-color-text-secondary);
+        margin: 0;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE HACKER CHRONICLE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-chronicle {
+
+    .bv-chronicle__timeline {
+        list-style: none;
+        padding: 0 clamp(1rem, 4vw, 2rem);
+        margin: 0 auto;
+        max-width: 90rem;
+        display: flex;
+        flex-direction: column;
+        gap: var(--bv-space-xl);
+        position: relative;
+    }
+
+    /* The vertical spine */
+    .bv-chronicle__timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        transform: translateX(-50%);
+        background: linear-gradient(to bottom,
+            transparent 0%,
+            var(--bv-color-accent) 3%,
+            var(--bv-color-accent-warm) 50%,
+            var(--bv-color-accent) 97%,
+            transparent 100%);
+        opacity: 0.4;
+    }
+
+    .bv-chronicle__era {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: var(--bv-space-lg);
+        align-items: center;
+        position: relative;
+    }
+    /* Alternate sides */
+    .bv-chronicle__era:nth-child(even) .bv-chronicle__era-body {
+        grid-column: 3;
+    }
+    .bv-chronicle__era:nth-child(even) .bv-chronicle__era-marker {
+        grid-column: 2;
+    }
+    .bv-chronicle__era:nth-child(odd) .bv-chronicle__era-body {
+        grid-column: 1;
+    }
+    .bv-chronicle__era:nth-child(odd) .bv-chronicle__era-marker {
+        grid-column: 2;
+    }
+
+    /* Marker */
+    .bv-chronicle__era-marker {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+        z-index: 1;
+    }
+    .bv-chronicle__era-year {
+        font-family: var(--bv-font-sci-display);
+        font-size: 1.05rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: var(--bv-color-accent);
+        padding: 0.4rem 0.9rem;
+        border: 1px solid var(--bv-color-accent);
+        border-radius: var(--bv-radius-full);
+        background: var(--bv-color-bg-deep);
+        box-shadow: 0 0 20px -4px oklch(60% 0.2 250 / 0.6);
+    }
+    .bv-chronicle__era-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--bv-color-accent-warm);
+        box-shadow: 0 0 20px var(--bv-color-accent-warm);
+        position: relative;
+    }
+    .bv-chronicle__era-dot::before {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        border: 1px solid var(--bv-color-accent-warm);
+        opacity: 0.4;
+        animation: bv-chronicle-ripple 2.5s ease-out infinite;
+    }
+    @keyframes bv-chronicle-ripple {
+        0%   { transform: scale(0.8); opacity: 0.6; }
+        100% { transform: scale(1.6); opacity: 0; }
+    }
+    .bv-chronicle__era-dot--live {
+        background: var(--bv-color-success);
+        box-shadow: 0 0 20px var(--bv-color-success);
+    }
+    .bv-chronicle__era-dot--live::before {
+        border-color: var(--bv-color-success);
+    }
+
+    /* Body card */
+    .bv-chronicle__era-body {
+        padding: var(--bv-space-lg);
+        position: relative;
+    }
+    .bv-chronicle__era-body--present {
+        border-color: var(--bv-color-accent);
+        box-shadow:
+            0 0 0 1px var(--bv-color-accent),
+            0 12px 40px -12px oklch(60% 0.2 250 / 0.5);
+    }
+
+    .bv-chronicle__era-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--bv-space-sm);
+        margin-bottom: var(--bv-space-sm);
+        padding-bottom: var(--bv-space-xs);
+        border-bottom: 1px solid var(--bv-color-border);
+    }
+    .bv-chronicle__era-label {
+        font-family: var(--bv-font-sci-label);
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--bv-color-accent);
+    }
+    .bv-chronicle__era-rune {
+        font-family: var(--bv-font-runic);
+        font-size: 1.5rem;
+        color: var(--bv-color-accent-warm);
+        text-shadow: 0 0 12px oklch(80% 0.15 85 / 0.5);
+        line-height: 1;
+    }
+
+    .bv-chronicle__era-title {
+        font-family: var(--bv-font-viking-heading);
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: var(--bv-color-text-primary);
+        margin-bottom: var(--bv-space-sm);
+    }
+    .bv-chronicle__era-body p {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.9rem;
+        line-height: 1.75;
+        color: var(--bv-color-text-secondary);
+        margin-bottom: var(--bv-space-md);
+    }
+    .bv-chronicle__era-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CREDENTIALS DEEP DIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-creds {
+
+    .bv-creds__grid {
+        max-width: 90rem;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+        gap: var(--bv-space-lg);
+        margin-bottom: var(--bv-space-xl);
+    }
+
+    .bv-creds__card {
+        display: flex;
+        flex-direction: column;
+        gap: var(--bv-space-sm);
+        padding: var(--bv-space-lg);
+        position: relative;
+        overflow: hidden;
+    }
+    .bv-creds__card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg,
+            var(--bv-color-accent),
+            var(--bv-color-accent-warm));
+    }
+    .bv-creds__card--oscp::before {
+        background: linear-gradient(90deg, var(--bv-color-accent), oklch(70% 0.2 290));
+    }
+    .bv-creds__card--ceh::before {
+        background: linear-gradient(90deg, var(--bv-color-danger), var(--bv-color-warning));
+    }
+    .bv-creds__card--phd::before {
+        background: linear-gradient(90deg, var(--bv-color-accent-warm), oklch(75% 0.18 60));
+    }
+
+    .bv-creds__card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--bv-space-sm);
+        flex-wrap: wrap;
+        margin-bottom: var(--bv-space-xs);
+    }
+    .bv-creds__card-badge {
+        font-family: var(--bv-font-sci-display);
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--bv-color-accent);
+        padding: 0.35rem 0.85rem;
+        border: 1px solid var(--bv-color-accent);
+        border-radius: var(--bv-radius-sm);
+        background: oklch(20% 0.06 250);
+        text-shadow: 0 0 20px oklch(60% 0.2 250 / 0.5);
+    }
+    .bv-creds__card-status {
+        font-family: var(--bv-font-sci-label);
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 0.25rem 0.6rem;
+        border-radius: var(--bv-radius-full);
+    }
+    .bv-creds__card-status--renewal {
+        background: oklch(22% 0.08 85 / 0.3);
+        border: 1px solid oklch(55% 0.15 85 / 0.5);
+        color: var(--bv-color-accent-warm);
+    }
+    .bv-creds__card-status--active {
+        background: oklch(22% 0.06 145 / 0.3);
+        border: 1px solid oklch(50% 0.15 145 / 0.5);
+        color: var(--bv-color-success);
+    }
+
+    .bv-creds__card-title {
+        font-family: var(--bv-font-viking-heading);
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--bv-color-text-primary);
+        letter-spacing: 0.02em;
+        line-height: 1.35;
+    }
+    .bv-creds__card-body {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: var(--bv-color-text-secondary);
+        margin-bottom: var(--bv-space-sm);
+    }
+    .bv-creds__card-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-top: var(--bv-space-sm);
+        border-top: 1px solid var(--bv-color-border);
+    }
+    .bv-creds__card-list li {
+        display: flex;
+        gap: 0.6rem;
+        align-items: flex-start;
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.82rem;
+        line-height: 1.55;
+        color: var(--bv-color-text-muted);
+    }
+    .bv-creds__card-list i {
+        color: var(--bv-color-success);
+        font-size: 0.75em;
+        margin-top: 0.3rem;
+        flex-shrink: 0;
+    }
+
+    .bv-creds__note {
+        max-width: 90rem;
+        margin-inline: auto;
+        padding: var(--bv-space-lg);
+        display: flex;
+        gap: var(--bv-space-md);
+        align-items: flex-start;
+        border: 1px solid oklch(60% 0.15 85 / 0.3);
+        border-radius: var(--bv-radius-lg);
+        background: oklch(18% 0.04 85 / 0.15);
+    }
+    .bv-creds__note-icon {
+        flex-shrink: 0;
+        font-size: 1.5rem;
+        color: var(--bv-color-accent-warm);
+        line-height: 1;
+    }
+    .bv-creds__note-body h4 {
+        font-family: var(--bv-font-viking-heading);
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--bv-color-accent-warm);
+        margin-bottom: 0.35rem;
+        letter-spacing: 0.04em;
+    }
+    .bv-creds__note-body p {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: var(--bv-color-text-secondary);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PHILOSOPHY
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-philosophy {
+
+    .bv-philosophy__grid {
+        max-width: 90rem;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+        gap: var(--bv-space-lg);
+    }
+
+    .bv-philosophy__principle {
+        display: flex;
+        gap: var(--bv-space-md);
+        padding: var(--bv-space-lg);
+        border-radius: var(--bv-radius-lg);
+        border: 1px solid var(--bv-color-border);
+        background: oklch(15% 0.02 250 / 0.4);
+        position: relative;
+        transition: border-color 300ms var(--bv-ease-out),
+                    background 300ms var(--bv-ease-out),
+                    transform 300ms var(--bv-ease-out);
+    }
+    .bv-philosophy__principle:hover {
+        border-color: var(--bv-color-accent);
+        background: oklch(18% 0.04 250 / 0.6);
+        transform: translateY(-3px);
+    }
+
+    .bv-philosophy__number {
+        flex-shrink: 0;
+        font-family: var(--bv-font-sci-display);
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: var(--bv-color-accent-warm);
+        line-height: 1;
+        min-width: 2.5rem;
+        text-align: center;
+        padding-top: 0.15rem;
+        text-shadow: 0 0 25px oklch(80% 0.15 85 / 0.5);
+    }
+
+    .bv-philosophy__title {
+        font-family: var(--bv-font-viking-heading);
+        font-size: 1.05rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: var(--bv-color-text-primary);
+        margin-bottom: var(--bv-space-sm);
+        line-height: 1.35;
+    }
+    .bv-philosophy__body p {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.88rem;
+        line-height: 1.75;
+        color: var(--bv-color-text-secondary);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FAMILY
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-family {
+
+    .bv-family__inner {
+        max-width: 90rem;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: var(--bv-space-xl);
+        align-items: center;
+    }
+
+    .bv-family__content {
+        display: flex;
+        flex-direction: column;
+    }
+    .bv-family__lead {
+        font-family: var(--bv-font-viking-heading);
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.5;
+        color: var(--bv-color-accent-warm);
+        margin-bottom: var(--bv-space-md);
+        letter-spacing: 0.01em;
+    }
+    .bv-family__content p {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.95rem;
+        line-height: 1.8;
+        color: var(--bv-color-text-secondary);
+        margin-bottom: var(--bv-space-md);
+    }
+    .bv-family__values {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin-top: var(--bv-space-md);
+        padding-top: var(--bv-space-md);
+        border-top: 1px solid var(--bv-color-border);
+    }
+    .bv-family__value {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-family: var(--bv-font-mono-primary);
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        color: var(--bv-color-text-secondary);
+    }
+    .bv-family__value i {
+        color: var(--bv-color-accent);
+        font-size: 1rem;
+        min-width: 1.2rem;
+    }
+
+    .bv-family__aside {
+        display: flex;
+        justify-content: center;
+    }
+    .bv-family__quote {
+        padding: var(--bv-space-lg);
+        position: relative;
+        max-width: 34rem;
+    }
+    .bv-family__quote-mark {
+        position: absolute;
+        top: -0.5rem;
+        right: 1rem;
+        font-size: 4rem;
+        color: var(--bv-color-accent-warm);
+        opacity: 0.35;
+        line-height: 1;
+        text-shadow: 0 0 30px oklch(80% 0.15 85 / 0.6);
+    }
+    .bv-family__quote blockquote {
+        font-family: var(--bv-font-viking-body);
+        font-size: 1.15rem;
+        line-height: 1.65;
+        color: var(--bv-color-text-primary);
+        letter-spacing: 0.01em;
+        margin-bottom: var(--bv-space-md);
+    }
+    .bv-family__quote cite {
+        font-family: var(--bv-font-mono-primary);
+        font-size: 0.75rem;
+        font-style: normal;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--bv-color-accent-warm);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ARSENAL
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-arsenal {
+
+    .bv-arsenal__grid {
+        max-width: 90rem;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+        gap: var(--bv-space-lg);
+    }
+
+    .bv-arsenal__column {
+        padding: var(--bv-space-lg);
+        display: flex;
+        flex-direction: column;
+        gap: var(--bv-space-md);
+    }
+
+    .bv-arsenal__column-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding-bottom: var(--bv-space-sm);
+        border-bottom: 1px solid var(--bv-color-border);
+    }
+    .bv-arsenal__column-header i {
+        color: var(--bv-color-accent-warm);
+        font-size: 1.15rem;
+    }
+    .bv-arsenal__column-header h3 {
+        font-family: var(--bv-font-viking-heading);
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--bv-color-text-primary);
+    }
+
+    .bv-arsenal__column-divider {
+        height: 1px;
+        background: linear-gradient(90deg,
+            transparent,
+            var(--bv-color-border),
+            transparent);
+        margin: var(--bv-space-xs) 0;
+    }
+
+    .bv-arsenal__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+    }
+    .bv-arsenal__list li {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: var(--bv-space-sm);
+        padding-bottom: 0.35rem;
+        border-bottom: 1px dashed oklch(30% 0.03 250 / 0.4);
+    }
+    .bv-arsenal__list li:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    .bv-arsenal__list span:first-child {
+        font-size: 0.85rem;
+        color: var(--bv-color-accent);
+        letter-spacing: 0.02em;
+        font-weight: 500;
+    }
+    .bv-arsenal__list-note {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.72rem;
+        color: var(--bv-color-text-muted);
+        text-align: right;
+        letter-spacing: 0.02em;
+    }
+    .bv-arsenal__list-note--primary {
+        color: var(--bv-color-success);
+        font-weight: 600;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VIKING HERITAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-heritage {
+
+    .bv-heritage {
+        position: relative;
+        background:
+            radial-gradient(ellipse at center, oklch(18% 0.05 85 / 0.2) 0%, transparent 65%),
+            oklch(12% 0.02 250);
+    }
+
+    .bv-heritage__inner {
+        max-width: 60rem;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+        text-align: center;
+    }
+
+    .bv-heritage__ornament {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        font-family: var(--bv-font-runic);
+        font-size: 2rem;
+        color: var(--bv-color-accent-warm);
+        margin-bottom: var(--bv-space-lg);
+        text-shadow: 0 0 20px oklch(80% 0.15 85 / 0.5);
+        letter-spacing: 0.3em;
+        padding-left: 0.3em;
+    }
+    .bv-heritage__ornament span {
+        animation: bv-heritage-rune-pulse 4s ease-in-out infinite;
+    }
+    .bv-heritage__ornament span:nth-child(2) { animation-delay: 0.3s; }
+    .bv-heritage__ornament span:nth-child(3) { animation-delay: 0.6s; }
+    .bv-heritage__ornament span:nth-child(4) { animation-delay: 0.9s; }
+    .bv-heritage__ornament span:nth-child(5) { animation-delay: 1.2s; }
+    @keyframes bv-heritage-rune-pulse {
+        0%, 100% { opacity: 0.6; }
+        50%      { opacity: 1; }
+    }
+
+    .bv-heritage__lead {
+        font-family: var(--bv-font-viking-body);
+        font-size: 1.15rem;
+        color: var(--bv-color-text-secondary);
+        line-height: 1.7;
+        margin-bottom: var(--bv-space-lg);
+        font-style: italic;
+    }
+
+    .bv-heritage__story {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: var(--bv-space-md);
+        margin-bottom: var(--bv-space-xl);
+    }
+    .bv-heritage__story p {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.95rem;
+        line-height: 1.85;
+        color: var(--bv-color-text-secondary);
+    }
+    .bv-heritage__story strong {
+        color: var(--bv-color-accent-warm);
+        font-weight: 600;
+    }
+
+    /* Runes table */
+    .bv-heritage__runes-table {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        margin-bottom: var(--bv-space-xl);
+        padding: var(--bv-space-md);
+        border: 1px solid var(--bv-color-border);
+        border-radius: var(--bv-radius-md);
+        background: oklch(14% 0.02 250 / 0.6);
+        text-align: left;
+    }
+    .bv-heritage__rune-row {
+        display: grid;
+        grid-template-columns: 3rem 8rem 1fr;
+        gap: var(--bv-space-sm);
+        align-items: center;
+        padding: 0.5rem 0.35rem;
+        border-bottom: 1px solid oklch(30% 0.03 250 / 0.4);
+    }
+    .bv-heritage__rune-row:last-child { border-bottom: none; }
+    .bv-heritage__rune-char {
+        font-family: var(--bv-font-runic);
+        font-size: 1.75rem;
+        color: var(--bv-color-accent-warm);
+        text-align: center;
+        text-shadow: 0 0 15px oklch(80% 0.15 85 / 0.5);
+        line-height: 1;
+    }
+    .bv-heritage__rune-name {
+        font-family: var(--bv-font-mono-primary);
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        color: var(--bv-color-accent);
+        text-transform: uppercase;
+    }
+    .bv-heritage__rune-meaning {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.85rem;
+        color: var(--bv-color-text-secondary);
+        line-height: 1.5;
+    }
+
+    .bv-heritage__closing {
+        font-family: var(--bv-font-viking-accent);
+        font-size: 1.35rem;
+        color: var(--bv-color-accent-warm);
+        text-shadow: 0 0 20px oklch(80% 0.15 85 / 0.4);
+        letter-spacing: 0.05em;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MANIFESTO
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-manifesto {
+
+    .bv-manifesto {
+        position: relative;
+        background:
+            radial-gradient(ellipse 80% 60% at 50% 50%,
+                oklch(18% 0.05 250 / 0.4) 0%, transparent 75%),
+            oklch(11% 0.02 250);
+        border-top: 1px solid var(--bv-color-accent);
+        border-bottom: 1px solid var(--bv-color-accent);
+    }
+
+    .bv-manifesto__inner {
+        max-width: 52rem;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+        text-align: center;
+    }
+
+    .bv-manifesto__title {
+        font-family: var(--bv-font-viking-display);
+        font-size: clamp(2rem, 1.5rem + 2vw, 3.25rem);
+        font-weight: 900;
+        color: var(--bv-color-text-primary);
+        margin-bottom: var(--bv-space-xl);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+    }
+
+    .bv-manifesto__content {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: var(--bv-space-md);
+    }
+
+    .bv-manifesto__opening {
+        font-family: var(--bv-font-viking-body);
+        font-size: 1.2rem;
+        line-height: 1.7;
+        color: var(--bv-color-text-primary);
+        padding-bottom: var(--bv-space-md);
+        border-bottom: 1px solid var(--bv-color-border);
+        letter-spacing: 0.01em;
+    }
+
+    .bv-manifesto__content p {
+        font-family: var(--bv-font-sci-body);
+        font-size: 0.98rem;
+        line-height: 1.85;
+        color: var(--bv-color-text-secondary);
+    }
+
+    .bv-manifesto__closing {
+        font-family: var(--bv-font-viking-display);
+        font-size: 1.35rem;
+        line-height: 1.5;
+        color: var(--bv-color-accent-warm);
+        text-align: center;
+        padding: var(--bv-space-lg) 0;
+        letter-spacing: 0.01em;
+        text-shadow: 0 0 25px oklch(80% 0.15 85 / 0.3);
+    }
+
+    .bv-manifesto__signature {
+        font-family: var(--bv-font-viking-accent);
+        font-size: 1.5rem;
+        color: var(--bv-color-text-primary);
+        text-align: right;
+        padding-top: var(--bv-space-md);
+        border-top: 1px solid var(--bv-color-border);
+        display: flex;
+        justify-content: flex-end;
+        align-items: baseline;
+        gap: var(--bv-space-sm);
+        flex-wrap: wrap;
+    }
+    .bv-manifesto__signature-meta {
+        font-family: var(--bv-font-mono-primary);
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--bv-color-text-muted);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FINAL CTA
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-cta {
+
+    .bv-about-cta {
+        border-top: 1px solid var(--bv-color-border);
+    }
+    .bv-about-cta__inner {
+        max-width: 52rem;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .bv-about-cta__rune {
+        font-family: var(--bv-font-runic);
+        font-size: 3rem;
+        color: var(--bv-color-accent-warm);
+        text-shadow:
+            0 0 30px oklch(80% 0.15 85 / 0.6),
+            0 0 60px oklch(80% 0.15 85 / 0.3);
+        margin-bottom: var(--bv-space-md);
+        animation: bv-about-rune-title 5s ease-in-out infinite;
+    }
+    .bv-about-cta__title {
+        font-family: var(--bv-font-viking-display);
+        font-size: clamp(1.75rem, 1.3rem + 2.25vw, 3rem);
+        font-weight: 900;
+        line-height: 1.1;
+        color: var(--bv-color-text-primary);
+        margin-bottom: var(--bv-space-md);
+        text-wrap: balance;
+    }
+    .bv-about-cta__lead {
+        font-family: var(--bv-font-sci-body);
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--bv-color-text-secondary);
+        margin-bottom: var(--bv-space-lg);
+        max-width: 55ch;
+    }
+    .bv-about-cta__actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--bv-space-sm);
+        margin-bottom: var(--bv-space-lg);
+    }
+    .bv-about-cta__footnote {
+        font-family: var(--bv-font-mono-primary);
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--bv-color-text-muted);
+    }
+    .bv-about-cta__footnote-val {
+        color: var(--bv-color-accent-warm);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer about-responsive {
+
+    /* ── Tablet ───────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+        .bv-about-origin__grid { grid-template-columns: 1fr; }
+        .bv-about-origin__side {
+            position: static;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--bv-space-md);
+        }
+        .bv-family__inner { grid-template-columns: 1fr; }
+        .bv-family__aside { justify-content: flex-start; }
+    }
+
+    /* ── Narrow phone ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+
+        /* Runes off */
+        .bv-about-hero__runes { display: none; }
+
+        /* Chronicle becomes single-column */
+        .bv-chronicle__timeline::before {
+            left: 1.5rem;
+        }
+        .bv-chronicle__era {
+            grid-template-columns: auto 1fr;
+            gap: var(--bv-space-md);
+        }
+        .bv-chronicle__era:nth-child(odd) .bv-chronicle__era-body,
+        .bv-chronicle__era:nth-child(even) .bv-chronicle__era-body {
+            grid-column: 2;
+        }
+        .bv-chronicle__era:nth-child(odd) .bv-chronicle__era-marker,
+        .bv-chronicle__era:nth-child(even) .bv-chronicle__era-marker {
+            grid-column: 1;
+        }
+        .bv-chronicle__era-marker {
+            align-items: flex-start;
+        }
+        .bv-chronicle__era-year {
+            font-size: 0.85rem;
+            padding: 0.3rem 0.65rem;
+        }
+    }
+
+    /* ── Small phone ──────────────────────────────────────────── */
+    @media (max-width: 640px) {
+        .bv-about-hero__meta {
+            grid-template-columns: 1fr 1fr;
+            gap: var(--bv-space-sm);
+        }
+        .bv-about-hero__title-name {
+            font-size: clamp(2rem, 1.5rem + 3vw, 3rem);
+        }
+        .bv-about-hero__title-tagline {
+            letter-spacing: 0.2em;
+            gap: 0.35rem 0.85rem;
+        }
+
+        .bv-about-origin__side {
+            grid-template-columns: 1fr;
+        }
+        .bv-about-origin__pullquote {
+            padding: var(--bv-space-md) var(--bv-space-md) var(--bv-space-md) 3.25rem;
+        }
+        .bv-about-origin__pullquote-mark {
+            font-size: 2rem;
+            left: 0.85rem;
+            top: 1.15rem;
+        }
+        .bv-about-origin__pullquote blockquote {
+            font-size: 1.05rem;
+        }
+
+        .bv-heritage__rune-row {
+            grid-template-columns: 2.25rem 1fr;
+            gap: 0.5rem;
+        }
+        .bv-heritage__rune-row > .bv-heritage__rune-meaning {
+            grid-column: 1 / -1;
+            padding-left: 0;
+            margin-top: 0.35rem;
+        }
+
+        .bv-manifesto__signature {
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .bv-philosophy__principle {
+            flex-direction: column;
+            gap: var(--bv-space-sm);
+        }
+        .bv-philosophy__number {
+            text-align: left;
+            min-width: 0;
+            font-size: 1.75rem;
+        }
+    }
+
+    /* ── Smallest phone ───────────────────────────────────────── */
+    @media (max-width: 420px) {
+        .bv-about-hero__meta {
+            grid-template-columns: 1fr;
+        }
+        .bv-family__value {
+            font-size: 0.78rem;
+        }
+        .bv-heritage__ornament {
+            gap: 0.5rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    /* ── Ultra-wide / TV ──────────────────────────────────────── */
+    @media (min-width: 1920px) {
+        .bv-about-origin__grid,
+        .bv-chronicle__timeline,
+        .bv-creds__grid,
+        .bv-creds__note,
+        .bv-philosophy__grid,
+        .bv-family__inner,
+        .bv-arsenal__grid {
+            max-width: 110rem;
+        }
+        .bv-manifesto__inner,
+        .bv-about-cta__inner,
+        .bv-heritage__inner {
+            max-width: 62rem;
+        }
+        .bv-about-hero__runes {
+            font-size: 1.65rem;
+            gap: 2rem;
+        }
+    }
+
+    /* ── Reduced motion ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+        .bv-about-hero__aurora,
+        .bv-about-hero__grid,
+        .bv-about-hero__runes span,
+        .bv-about-hero__title-runes,
+        .bv-about-hero__scroll-rune,
+        .bv-about-hero__scroll-line,
+        .bv-about-hero__meta-dot,
+        .bv-chronicle__era-dot::before,
+        .bv-heritage__ornament span,
+        .bv-about-cta__rune {
+            animation: none;
+        }
+    }
+}
